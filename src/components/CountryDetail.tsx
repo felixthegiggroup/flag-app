@@ -20,7 +20,7 @@ const CountryDetail = () => {
     const getCountry = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(fetchApi(`alphas/${code}`));
+        const res = await axios.get(fetchApi(`alpha/${code}`));
         if (res.data) {
           setCountries(res.data);
           setLoading(false);
@@ -42,7 +42,6 @@ const CountryDetail = () => {
   const capitalize = (border: string) => {
     return border.charAt(0).toUpperCase() + border.slice(1).toLowerCase();
   };
-  console.log(countries[0]);
 
   const apiError = countries !== undefined && countries[0] === undefined;
   return (

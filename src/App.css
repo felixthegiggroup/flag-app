@@ -17,6 +17,7 @@
 
 .span {
   color: var(--Dark-Gray);
+  margin-left: 10px;
 }
 
 .shadow-md {

@@ -42,6 +42,9 @@ const CountryRegion = () => {
 
     getCountry();
   }, [region, searchCountry]);
+  console.log(countries);
+  console.log(selectRegion);
+  console.log(getError);
   if (getError) {
     return <Error getError={getError} />;
   }
