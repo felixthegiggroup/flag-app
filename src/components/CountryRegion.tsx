@@ -19,33 +19,32 @@ const CountryRegion = () => {
   useEffect(() => {
     const getCountry = async () => {
       setLoading(true);
-
       try {
         const res = await axios(
           searchCountry
             ? fetchApi(`name/${searchCountry}`)
             : fetchApi(`region/${region}`)
         );
-
         if (res.data) {
-          setCountry(res.data);
           setLoading(false);
+          setCountry(res.data);
         }
       } catch (error: any) {
-        console.log(error);
         setLoading(true);
         setTimeout(() => {
           if (error.response.status === 404) {
             setError(error.request.statusText);
+            setLoading(false);
           }
-          setLoading(false);
         }, 5000);
       }
     };
 
     getCountry();
   }, [region, searchCountry]);
-  console.log(getError);
+  if (getError) {
+    return <Error getError={getError} />;
+  }
   return (
     <div>
       <Searchbar
@@ -59,14 +58,12 @@ const CountryRegion = () => {
         <>
           <Loader loading={loading} />
           {countries && (
-            <div className="grid">
+            <div className={`${loading ? "d-none" : "grid"}`}>
               {countries?.slice(0, 8)?.map((country, i) => (
                 <ItemList key={i} country={country} />
               ))}
             </div>
           )}
-
-          {getError && <Error getError={getError} />}
         </>
       </Container>
     </div>

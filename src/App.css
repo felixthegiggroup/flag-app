@@ -27,6 +27,10 @@
   box-shadow: var(--shadow-lg);
 }
 
+.d-none {
+  display: none;
+}
+
 body {
   background-color: var(--Very-Light-Gray);
 }
@@ -108,14 +112,18 @@ body {
 }
 
 .error-style {
-  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
 }
 
 .error {
+  height: 100vh;
   color: #fc1035;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .grid {
   display: grid;

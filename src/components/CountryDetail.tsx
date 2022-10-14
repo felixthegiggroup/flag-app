@@ -39,15 +39,12 @@ const CountryDetail = () => {
     getCountry();
   }, [code]);
 
-  let result;
-  for (let x in countries) {
-    result = countries[x];
-  }
+  const capitalize = (border: string) => {
+    return border.charAt(0).toUpperCase() + border.slice(1).toLowerCase();
+  };
+  console.log(countries[0]);
 
-  function capitalize(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
-
+  const apiError = countries !== undefined && countries[0] === undefined;
   return (
     <Container>
       <>
@@ -59,41 +56,47 @@ const CountryDetail = () => {
             <BsArrowLeft className="icon" /> Back
           </button>
           <Loader loading={loading} />
-          {result ? (
-            <div className="detail-body">
+          {apiError ? (
+            <Error getError={getError} />
+          ) : (
+            <div className={`${getError ? "d-none" : ""} detail-body`}>
               <div className="detail-body--img">
-                <img src={result.flags.png} alt={result?.name?.common} />
+                <img
+                  src={countries[0]?.flags?.png}
+                  alt={countries[0]?.name?.common}
+                />
               </div>
               <div className="detail-body-stack">
-                <h1 className="header">{result?.name?.common}</h1>
+                <h1 className="header">{countries[0]?.name?.common}</h1>
                 <div className="detail-body--content">
                   <div className="detail-body--content__left">
                     <h4 className="h4">
-                      Population:{" "}
-                      <span className="span">{result?.population}</span>
+                      Population:
+                      <span className="span">{countries[0]?.population}</span>
                     </h4>
                     <h4 className="h4">
-                      Region: <span className="span"> {result?.region}</span>
+                      Region:
+                      <span className="span"> {countries[0]?.region}</span>
                     </h4>
                     <h4 className="h4">
-                      Sub Region:{" "}
-                      <span className="span">{result?.subregion}</span>
+                      Sub Region:
+                      <span className="span">{countries[0]?.subregion}</span>
                     </h4>
                     <h4 className="h4">
-                      {" "}
-                      Capital: <span className="span">{result?.capital}</span>
+                      Capital:
+                      <span className="span">{countries[0]?.capital}</span>
                     </h4>
                   </div>
                   <div className="detail-body--content__right">
                     <h4 className="h4">
-                      {" "}
-                      Top Level Domain:{" "}
-                      <span className="span">{result?.tld[0]}</span>
+                      Top Level Domain:
+                      <span className="span">{countries[0]?.tld[0]}</span>
                     </h4>
                     <h4 className="h4">
-                      Lanquages:{" "}
+                      Lanquages:
                       <span className="span">
-                        {Object.values(result?.languages).toString()}
+                        {countries[0] &&
+                          Object.values(countries[0]?.languages).toString()}
                       </span>
                     </h4>
                   </div>
@@ -101,9 +104,8 @@ const CountryDetail = () => {
                 <div className="footer">
                   <h4 className="h4">
                     Border Countries:
-                    {result?.borders?.map((border: any) => (
+                    {countries[0]?.borders?.map((border: any) => (
                       <span className="span shadow-md footer-text">
-                        {" "}
                         {capitalize(border)}
                       </span>
                     ))}
@@ -111,8 +113,6 @@ const CountryDetail = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <Error getError={getError} />
           )}
         </div>
       </>

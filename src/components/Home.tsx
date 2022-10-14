@@ -4,6 +4,8 @@ import { fetchApi } from "../api/FetchApi";
 import Container from "../utils/Container";
 import Searchbar from "./Searchbar";
 import ItemList from "./ItemList";
+import Loader from "./Loader";
+import Error from "./Error";
 
 const Home = () => {
   const [countries, setCountry] = useState([]);
@@ -49,6 +51,7 @@ const Home = () => {
       />
       <Container>
         <Fragment>
+          {loading && <Loader loading={loading} />}
           {countries && (
             <div className="grid">
               {countries?.slice(0, 8)?.map((country, i) => (
@@ -57,7 +60,7 @@ const Home = () => {
             </div>
           )}
 
-          {getError && <h1>{getError}</h1>}
+          {getError && <Error getError={getError} />}
         </Fragment>
       </Container>
     </div>
