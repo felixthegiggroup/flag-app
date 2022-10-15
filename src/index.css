@@ -4,3 +4,18 @@
   box-sizing: border-box;
   font-family: "Nunito Sans", sans-serif;
 }
+
+.home {
+  height: 100%;
+}
+
+.detail {
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .home,
+  .detail {
+    height: 100%;
+  }
+}

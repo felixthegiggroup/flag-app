@@ -4,17 +4,34 @@ import { MdOutlineDarkMode } from "react-icons/md";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props: { setDarkMode: any; darkMode: boolean }) => {
   return (
-    <nav className="navbar">
+    <nav className={`${props.darkMode ? "bg-dark" : "bg-light"} navbar`}>
       <Container>
         <header className="navbar-header">
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <h3 className="navbar-header__text"> Where in the world?</h3>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <h3
+              className={`${
+                props.darkMode ? "text-light" : "text-dark"
+              } navbar-header__text`}
+            >
+              {" "}
+              Where in the world?
+            </h3>
           </Link>
-          <div className="navbar-iconwrapper">
+          <div
+            className={`${
+              props.darkMode ? " text-light" : "text-dark"
+            } navbar-iconwrapper`}
+            onClick={() => props.setDarkMode(!props.darkMode)}
+          >
             <MdOutlineDarkMode style={{ marginRight: "10px" }} />
-            <h3 className="navbar-iconwrapper__text">Dark Mode</h3>
+            <h3 className={` navbar-iconwrapper__text`}>Dark Mode</h3>
           </div>
         </header>
       </Container>

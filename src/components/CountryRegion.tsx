@@ -7,8 +7,9 @@ import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
 import Loader from "./Loader";
 import Error from "./Error";
+import Main from "../utils/Main";
 
-const CountryRegion = () => {
+const CountryRegion = (props: { darkMode: boolean }) => {
   const [countries, setCountry] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
   const [selectRegion, setSelectRegion] = useState("");
@@ -42,34 +43,35 @@ const CountryRegion = () => {
 
     getCountry();
   }, [region, searchCountry]);
-  console.log(countries);
-  console.log(selectRegion);
-  console.log(getError);
+
   if (getError) {
     return <Error getError={getError} />;
   }
   return (
-    <div>
-      <Searchbar
-        searchCountry={searchCountry}
-        setSearchCountry={setSearchCountry}
-        selectRegion={selectRegion}
-        setSelectRegion={setSelectRegion}
-      />
+    <Main darkMode={props.darkMode} bg="home">
+      <>
+        <Searchbar
+          searchCountry={searchCountry}
+          setSearchCountry={setSearchCountry}
+          selectRegion={selectRegion}
+          setSelectRegion={setSelectRegion}
+          darkMode={props.darkMode}
+        />
 
-      <Container>
-        <>
-          <Loader loading={loading} />
-          {countries && (
-            <div className={`${loading ? "d-none" : "grid"}`}>
-              {countries?.slice(0, 8)?.map((country, i) => (
-                <ItemList key={i} country={country} />
-              ))}
-            </div>
-          )}
-        </>
-      </Container>
-    </div>
+        <Container>
+          <>
+            <Loader loading={loading} />
+            {countries && (
+              <div className={`${loading ? "d-none" : "grid"}`}>
+                {countries?.slice(0, 8)?.map((country, i) => (
+                  <ItemList key={i} country={country} dark={props.darkMode} />
+                ))}
+              </div>
+            )}
+          </>
+        </Container>
+      </>
+    </Main>
   );
 };
 
